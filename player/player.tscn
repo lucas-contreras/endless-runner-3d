@@ -1,0 +1,40 @@
+[gd_scene load_steps=6 format=3 uid="uid://cfs3f45ql65f1"]
+
+[ext_resource type="Script" path="res://player/Player.gd" id="1_kkxn4"]
+[ext_resource type="PackedScene" uid="uid://cxmw25alnf7a4" path="res://player/fast_run.tscn" id="2_omn5e"]
+
+[sub_resource type="BoxMesh" id="BoxMesh_cfg6b"]
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_7g357"]
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_d701e"]
+
+[node name="Player" type="CharacterBody3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.28316, 0)
+script = ExtResource("1_kkxn4")
+metadata/_edit_group_ = true
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="."]
+visible = false
+mesh = SubResource("BoxMesh_cfg6b")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="."]
+shape = SubResource("BoxShape3D_7g357")
+
+[node name="SpringArm3D" type="SpringArm3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, -0.960905, 0.276879, 0, -0.276879, -0.960905, 0, 0, 0)
+spring_length = 5.0
+
+[node name="Camera3D" type="Camera3D" parent="SpringArm3D"]
+transform = Transform3D(-1, 8.74228e-08, 0, -8.74228e-08, -1, 0, 0, 0, 1, 0, 0.287022, 2.5075)
+
+[node name="Root Scene" parent="." instance=ExtResource("2_omn5e")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.501053, 0)
+
+[node name="AreaEnemyDetection" type="Area3D" parent="."]
+transform = Transform3D(1.2, 0, 0, 0, 1.2, 0, 0, 0, 1.2, 0, 0, 0)
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="AreaEnemyDetection"]
+shape = SubResource("BoxShape3D_d701e")
+
+[connection signal="body_entered" from="AreaEnemyDetection" to="." method="_on_area_enemy_detection_body_entered"]

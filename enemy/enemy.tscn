@@ -1,0 +1,23 @@
+[gd_scene load_steps=5 format=3 uid="uid://bruuv4mphvg1l"]
+
+[ext_resource type="Texture2D" uid="uid://cpw57v8ae5g70" path="res://enemy/slime.png" id="1_ppg4x"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_whcap"]
+albedo_texture = ExtResource("1_ppg4x")
+uv1_scale = Vector3(2.105, 2.105, 2.105)
+uv1_offset = Vector3(-0.535, 0, 0)
+uv2_scale = Vector3(2, 2, 2)
+
+[sub_resource type="PrismMesh" id="PrismMesh_1dq5t"]
+material = SubResource("StandardMaterial3D_whcap")
+
+[sub_resource type="ConvexPolygonShape3D" id="ConvexPolygonShape3D_aenh8"]
+points = PackedVector3Array(0, 0.5, 0.5, 0.5, -0.5, 0.5, 0, 0.5, -0.5, -0.5, -0.5, 0.5, 0.5, -0.5, -0.5, -0.5, -0.5, -0.5)
+
+[node name="Enemy" type="StaticBody3D" groups=["Enemy"]]
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="." groups=["Enemy"]]
+mesh = SubResource("PrismMesh_1dq5t")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="."]
+shape = SubResource("ConvexPolygonShape3D_aenh8")
